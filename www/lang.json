@@ -1,7 +1,339 @@
 {
+  "4001": {
+    "name": "C (GCC 9.2.1)",
+    "files": ["Main.c", "a.out"],
+    "compile": "gcc -std=gnu11 -O2 -DONLINE_JUDGE -o $1 $0 -lm",
+    "run": "$1"
+  },
+  "4002": {
+    "name": "C (Clang 10.0.0)",
+    "files": ["Main.c", "a.out"],
+    "compile": "clang -std=c11 -O2 -DONLINE_JUDGE -o $1 $0 -lm",
+    "run": "$1"
+  },
+  "4003": {
+    "name": "C++ (GCC 9.2.1)",
+    "files": ["Main.cpp", "a.out"],
+    "compile": "g++ -std=gnu++17 -Wall -Wextra -O2 -DONLINE_JUDGE -I/opt/boost/gcc/include -L/opt/boost/gcc/lib -I/opt/ac-library -o $1 $0",
+    "run": "$1"
+  },
+  "4004": {
+    "name": "C++ (Clang 10.0.0)",
+    "files": ["Main.cpp", "a.out"],
+    "compile": "clang++ -std=c++17 -stdlib=libc++ -Wall -O2 -DNDEBUG -DONLINE_JUDGE  -I/opt/boost/clang/include -L/opt/boost/clang/lib -I/opt/ac-library -o $1 $0",
+    "run": "$1"
+  },
+  "4005": {
+    "name": "Java (OpenJDK 11.0.6)",
+    "files": ["Main.java", "."],
+    "compile": "cd $1; /usr/lib/jvm/java-11-openjdk-amd64/bin/javac ./Main.java",
+    "run": "cd $1; /usr/lib/jvm/java-11-openjdk-amd64/bin/java -Xss{stack_size:mb}M Main"
+  },
+  "4006": {
+    "name": "Python (3.8.2)",
+    "files": ["Main.py"],
+    "compile": "bash -c 'python3.8 $0 ONLINE_JUDGE 2>/dev/null'",
+    "run": "python3.8 $0"
+  },
+  "4007": {
+    "name": "Bash (5.0.11)",
+    "files": ["Main.sh"],
+    "run": "bash $0"
+  },
+  "4008": {
+    "name": "bc (1.07.1)",
+    "files": ["Main.bc"],
+    "run": "bc --mathlib $0"
+  },
+  "4009": {
+    "name": "Awk (GNU Awk 4.1.4)",
+    "files": ["Main"],
+    "run": "awk -f $0"
+  },
+  "4010": {
+    "name": "C# (.NET Core 3.1.201)",
+    "files": ["Main.cs", "."],
+    "compile": "cd $1; bash -c 'cp ./Main.cs ./../csharp/Program.cs && dotnet publish ./../csharp -c Release -r ubuntu.18.04-x64 -p:PublishReadyToRun=true -o . -v q --nologo 1>&2'",
+    "run": "cd $1; ./csharp"
+  },
+  "4011": {
+    "name": "C# (Mono-mcs 6.8.0.105)",
+    "compile": "mcs -warn:0 -o+ -unsafe -r:System.Numerics -langversion:latest ./Main.cs -out:./Main.exe",
+    "run": "mono ./Main.exe"
+  },
+  "4012": {
+    "name": "C# (Mono-csc 3.5.0)",
+    "compile": "csc -warn:0 -o+ -unsafe -r:System.Numerics.dll -langversion:latest ./Main.cs -out:./Main.exe",
+    "run": "mono ./Main.exe"
+  },
+  "4013": {
+    "name": "Clojure (1.10.1.536)",
+    "compile": "",
+    "run": "clojure -J-Xss{stack_size:mb}M ./Main.clj"
+  },
+  "4014": {
+    "name": "Crystal (0.33.0)",
+    "compile": "crystal build --release --no-debug --no-color  -o ./a.out ./Main.cr",
+    "run": "./a.out"
+  },
+  "4015": {
+    "name": "D (DMD 2.091.0)",
+    "compile": "bash -c 'dmd -wi -m64 -O -release -inline -boundscheck=off -of=./a.out `dub list | head -n-1 | tail -n+3 | awk \"{print \\\"-I\\\" \\\\$3 \\\"source\\\"}\" | xargs` ./Main.d'",
+    "run": "./a.out"
+  },
+  "4016": {
+    "name": "D (GDC 9.2.1)",
+    "compile": "gdc -O2 -frelease -o ./a.out ./Main.d",
+    "run": "./a.out"
+  },
+  "4017": {
+    "name": "D (LDC 1.20.1)",
+    "compile": "ldc2 -O -release -of ./a.out ./Main.d",
+    "run": "./a.out"
+  },
+  "4018": {
+    "name": "Dart (2.7.2)",
+    "compile": "dart2native ./Main.dart -o ./a.out",
+    "run": "./a.out"
+  },
+  "4019": {
+    "name": "dc (1.4.1)",
+    "compile": "",
+    "run": "dc -f ./Main.dc"
+  },
+  "4020": {
+    "name": "Erlang (22.3)",
+    "compile": "bash -c 'erlc Main.erl 1>&2'",
+    "run": "erl -noshell -run Main main run erlang halt"
+  },
+  "4021": {
+    "name": "Elixir (1.10.2)",
+    "compile": "bash -c 'elixirc ./Main.ex -o . 1>&2'",
+    "run": "elixir -pa . -e Main.main"
+  },
+  "4022": {
+    "name": "F# (.NET Core 3.1.201)",
+    "compile": "bash -c 'cp ./Main.fs ./../fsharp/Program.fs && dotnet publish ./../fsharp -c Release -r ubuntu.18.04-x64 -o . -v q --nologo 1>&2'",
+    "run": "./fsharp"
+  },
+  "4023": {
+    "name": "F# (Mono 10.2.3)",
+    "compile": "fsharpc -O -o ./a.exe ./Main.fs",
+    "run": "mono ./a.exe"
+  },
+  "4024": {
+    "name": "Forth (gforth 0.7.3)",
+    "compile": "",
+    "run": "gforth-fast ./Main.fs -e bye"
+  },
+  "4025": {
+    "name": "Fortran (GNU Fortran 9.2.1)",
+    "compile": "gfortran -O2 -o ./a.out ./Main.f08",
+    "run": "./a.out"
+  },
+  "4026": {
+    "name": "Go (1.14.1)",
+    "compile": "go build -buildmode=exe -o ./a.out ./Main.go",
+    "run": "./a.out"
+  },
+  "4027": {
+    "name": "Haskell (GHC 8.8.3)",
+    "compile": "ghc -o a.out -O2 ./Main",
+    "run": "./a.out"
+  },
+  "4028": {
+    "name": "Haxe (4.0.3); js",
+    "compile": "haxe -cp . -main Main -js ./Main.js -lib hxnodejs",
+    "run": "node ./Main.js"
+  },
+  "4029": {
+    "name": "Haxe (4.0.3); Java",
+    "compile": "haxe -m Main -cp . --java .",
+    "run": "java -Xss{stack_size:mb}M -jar ./Main.jar"
+  },
+  "4030": {
+    "name": "JavaScript (Node.js 12.16.1)",
+    "compile": "",
+    "run": "node ./Main.js --stack-size={stack_size:kb}"
+  },
+  "4031": {
+    "name": "Julia (1.4.0)",
+    "compile": "bash -c 'julia ./Main.jl ONLINE_JUDGE 2>/dev/null'",
+    "run": "julia ./Main.jl"
+  },
+  "4032": {
+    "name": "Kotlin (1.3.71)",
+    "compile": "kotlinc ./Main.kt -include-runtime -d ./Main.jar -XXLanguage:+InlineClasses",
+    "run": "/usr/lib/jvm/java-11-openjdk-amd64/bin/java -cp ./Main.jar MainKt -Xss{stack_size:mb}m"
+  },
+  "4033": {
+    "name": "Lua (Lua 5.3.5)",
+    "compile": "luac -o ./luac.out ./Main.lua",
+    "run": "lua ./luac.out"
+  },
+  "4034": {
+    "name": "Lua (LuaJIT 2.1.0)",
+    "compile": "luajit -O3 -b ./Main.lua ./luac.out",
+    "run": "luajit -O3 ./luac.out"
+  },
+  "4035": {
+    "name": "Dash (0.5.8)",
+    "compile": "",
+    "run": "sh ./Main.sh"
+  },
+  "4036": {
+    "name": "Nim (1.0.6)",
+    "compile": "nim cpp -d:release --opt:speed --multimethods:on --warning[SmallLshouldNotBeUsed]:off --hints:off -o:./a.out ./Main.nim",
+    "run": "./a.out"
+  },
+  "4037": {
+    "name": "Objective-C (Clang 10.0.0)",
+    "compile": "bash -c 'clang $(gnustep-config --objc-flags) -I/usr/lib/gcc/x86_64-linux-gnu/7/include -o ./a.out ./Main.m $(gnustep-config --base-libs)'",
+    "run": "./a.out"
+  },
+  "4038": {
+    "name": "Common Lisp (SBCL 2.0.3)",
+    "compile": "sbcl --noinform --eval '(compile-file \"./Main\")' --quit",
+    "run": "sbcl --script ./Main.fasl"
+  },
+  "4039": {
+    "name": "OCaml (4.10.0)",
+    "compile": "bash -c 'eval $(opam env) ocamlfind ocamlopt -O2 -o ./a.out ./Main.ml -linkpkg -thread -package str,num,threads,containers,core,iter,batteries'",
+    "run": "./a.out"
+  },
+  "4040": {
+    "name": "Octave (5.2.0)",
+    "compile": "",
+    "run": "flatpak run org.octave.Octave -W ./Main.m"
+  },
+  "4041": {
+    "name": "Pascal (FPC 3.0.4)",
+    "compile": "fpc -O2 -Sd -Sh -o./a.out ./Main.pas",
+    "run": "./a.out"
+  },
+  "4042": {
+    "name": "Perl (5.26.1)",
+    "compile": "perl -W -c ./Main.pl",
+    "run": "perl -X ./Main.pl"
+  },
+  "4043": {
+    "name": "Raku (Rakudo 2020.02.1)",
+    "compile": "perl6 -c ./Main.p6",
+    "run": "perl6 ./Main.p6"
+  },
+  "4044": {
+    "name": "PHP (7.4.4)",
+    "compile": "php -l ./Main.php",
+    "run": "php ./Main.php"
+  },
+  "4045": {
+    "name": "Prolog (SWI-Prolog 8.0.3)",
+    "compile": "swipl -O -g main -o ./Main -c ./Main.pl",
+    "run": "./Main"
+  },
+  "4046": {
+    "name": "PyPy2 (7.3.0)",
+    "compile": "",
+    "run": "pypy ./Main.py"
+  },
+  "4047": {
+    "name": "PyPy3 (7.3.0)",
+    "compile": "",
+    "run": "pypy3 ./Main.py"
+  },
+  "4048": {
+    "name": "Racket (7.6)",
+    "compile": "raco exe -o ./a.out ./Main.rkt",
+    "run": "./a.out"
+  },
+  "4049": {
+    "name": "Ruby (2.7.1)",
+    "files": ["Main.rb"],
+    "compile": "ruby -w -c $0",
+    "run": "bash -c 'RUBY_THREAD_VM_STACK_SIZE={stack_size:b} ruby $0'"
+  },
+  "4050": {
+    "name": "Rust (1.42.0)",
+    "compile": "bash -c 'cp ./Main.rs ./../rust/src/main.rs && cargo build --release --offline --quiet --manifest-path=/imojudge/rust/Cargo.toml && cp ./../rust/target/release/main ./a.out'",
+    "run": "./a.out"
+  },
+  "4051": {
+    "name": "Scala (2.13.1)",
+    "compile": "bash -c 'JAVACMD=/usr/lib/jvm/java-8-openjdk-amd64/bin/java scalac -opt:_ -opt-inline-from:'**' -opt-warnings:_ -deprecation -d . ./Main.scala'",
+    "run": "bash -c 'JAVACMD=/usr/lib/jvm/java-8-openjdk-amd64/bin/java scala -J-Xss{stack_size:mb}M -classpath . Main'"
+  },
+  "4052": {
+    "name": "Java (OpenJDK 1.8.0)",
+    "compile": "/usr/lib/jvm/java-8-openjdk-amd64/bin/javac ./Main.java",
+    "run": "/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java -Xss{stack_size:mb}M Main"
+  },
+  "4053": {
+    "name": "Scheme (Gauche 0.9.9)",
+    "compile": "gosh precomp -e ./Main.scm",
+    "run": "gosh ./Main.scm"
+  },
+  "4054": {
+    "name": "Standard ML (MLton 20130715)",
+    "compile": "mlton -output ./a.out ./Main.sml",
+    "run": "./a.out"
+  },
+  "4055": {
+    "name": "Swift (5.2.1)",
+    "compile": "swiftc -Ounchecked -o ./a.out ./Main.swift",
+    "run": "./a.out"
+  },
   "4056": {
-    "name": "Text (cat)",
-    "files": ["Main.txt"],
-    "run": "cat $0"
+    "name": "Text (cat 8.28)",
+    "run": "cat ./Main.txt"
+  },
+  "4057": {
+    "name": "TypeScript (3.8)",
+    "compile": "bash -c 'ln -s /usr/lib/node_modules ./node_modules; tsc ./Main.ts --target ESNext --outDir . --moduleResolution node --module commonjs'",
+    "run": "node ./Main.js --stack-size={stack_size:kb}"
+  },
+  "4058": {
+    "name": "Visual Basic (.NET Core 3.1.101)",
+    "compile": "bash -c 'cp ./Main.vb ./../visualbasic/Program.vb && dotnet publish ./../visualbasic -c Release -r ubuntu.18.04-x64 -o . -v q --nologo 1>&2'",
+    "run": "./visualbasic"
+  },
+  "4059": {
+    "name": "Zsh (5.4.2)",
+    "run": "zsh ./Main.sh"
+  },
+  "4060": {
+    "name": "COBOL - Fixed (OpenCOBOL 1.1.0)",
+    "compile": "cobc -x -O2 -o ./a.out ./Main.cob",
+    "run": "./a.out"
+  },
+  "4061": {
+    "name": "COBOL - Free (OpenCOBOL 1.1.0)",
+    "compile": "cobc -x -free -O2 -o ./a.out ./Main.cob",
+    "run": "./a.out"
+  },
+  "4062": {
+    "name": "Brainfuck (bf 20041219)",
+    "run": "bf -c999999999 ./Main.bf"
+  },
+  "4063": {
+    "name": "Ada2012 (GNAT 9.2.1)",
+    "compile": "gnat-9 make -O3 -o ./a.out ./Main.adb",
+    "run": "./a.out"
+  },
+  "4064": {
+    "name": "Unlambda (2.0.0)",
+    "run": "unlambda ./Main.unl"
+  },
+  "4065": {
+    "name": "Cython (0.29.16)",
+    "compile": "bash -c 'cython -3 --embed ./Main.pyx; gcc -O2 -fPIC -I/usr/include/python3.8 -I/usr/local/lib/python3.8/dist-packages/numpy/core/include -o ./a.out ./Main.c -lpython3.8'",
+    "run": "./a.out"
+  },
+  "4066": {
+    "name": "Sed (4.4)",
+    "run": "sed -f ./Main.sed"
+  },
+  "4067": {
+    "name": "Vim (8.2.0460)",
+    "run": "bash -c 'cat - > /tmp/out; TERM=dumb vim -N -u NONE -i NONE -s ./Main.vim /tmp/out > /dev/null 2>&1; cat /tmp/out'"
   }
 }
