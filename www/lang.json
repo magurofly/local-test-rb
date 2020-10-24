@@ -1,0 +1,7 @@
+{
+  "4056": {
+    "name": "Text (cat)",
+    "files": ["Main.txt"],
+    "run": "cat $0"
+  }
+}

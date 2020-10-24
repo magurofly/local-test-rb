@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Local Tester</title>
+  </head>
+  <body>
+    <h1>Submit Source</h1>
+    <form id="testcode">
+      <p><select name="LanguageId"></select></p>
+      <p><textarea rows="10" cols="30" name="sourceCode"></textarea></p>
+      <p><label>
+        標準入力:
+        <textarea rows="3" cols="30" name="input"></textarea>
+      </label></p>
+      <p>
+        <button type="button" name="run">実行</button>
+      </p>
+      <p>
+        <label>
+          終了コード:
+          <input type="text" name="exitcode">
+        </label>
+        <label>
+          時間 [ms]:
+          <input type="text" name="time">
+        </label>
+        <label>
+          メモリ [KB]:
+          <input type="text" name="memory">
+        </label>
+      </p>
+      <p><label>
+        標準出力:
+        <textarea rows="3" cols="30" name="stdout"></textarea>
+      </label></p>
+      <p><label>
+        エラー出力:
+        <textarea rows="3" cols="30" name="stderr"></textarea>
+      </label></p>
+    </form>
+    <script>
+const form = document.getElementById("testcode");
+
+fetch("/lang.json").then(res => res.json()).then(langs => {
+  for (const [id, lang] of Object.entries(langs)) {
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = lang.name;
+    form.LanguageId.appendChild(option);
+  }
+});
+
+
+form.run.onclick = async () => {
+  console.log("run");
+  const id = await responseOf(fetch("/submit", {
+    method: "POST",
+    body: JSON.stringify({
+      LanguageId: form.LanguageId.value,
+      sourceCode: form.sourceCode.value,
+      input: form.input.value,
+    }),
+  }));
+  console.log("ID: " + id);
+
+  waiting: for (;;) {
+    await sleep(500);
+    const {status, result} = await responseOf(fetch(`/status?id=${id}`));
+    console.log(status);
+    switch (status) {
+      case "waiting":
+        form.exitcode.value = "waiting...";
+        break;
+
+      case "running":
+        form.exitcode.value = "running...";
+        break;
+
+      case "finished":
+      case "compile_error":
+      case "runtime_error":
+        form.exitcode.value = result.exitcode;
+        form.stdout.value = result.stdout;
+        form.stderr.value = result.stderr;
+        form.memory.value = result.memory;
+        form.time.value = result.time;
+        break waiting;
+    }
+  }
+};
+
+async function responseOf(responsePromise) {
+  const {status, result} = await (await responsePromise).json();
+  if (status == "success") {
+    return result;
+  } else if (status == "error") {
+    throw new Error(`from Server: ${result}`);
+  }
+}
+
+function sleep(ms) {
+  return new Promise(done => setTimeout(done, ms));
+}
+    </script>
+  </body>
+</html>
